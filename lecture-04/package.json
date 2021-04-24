@@ -1,0 +1,19 @@
+{
+  "name": "lecture-04",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-reader": "^1.0.7",
+    "csv-writer": "^1.6.0",
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "serve": "^11.3.2"
+  }
+}
