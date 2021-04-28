@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .basicButton1 {
+        width: 100px;
+        height: 200px;
+        order: 2;
+      }
+
+      .basicButton2 {
+        width: 100px;
+        height: 100px;
+        order: 1;
+      }
+
+      .basicButton3 {
+        width: 100px;
+        height: 300px;
+        order: 3;
+      }
+
+      .box{
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: stretch;
+      }
+
+      body{
+          margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <button class="basicButton1">One</button>
+      <button class="basicButton2">Two</button>
+      <button class="basicButton3">Three</button>
+    </div>
+  </body>
+</html>
