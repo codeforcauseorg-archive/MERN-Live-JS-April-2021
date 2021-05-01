@@ -2,18 +2,30 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  let [counter, setCounter] = useState(0);
+  let [text, setText] = useState("");
+  let [lines, setLines] = useState([]);
 
   return (
     <div>
-      <h1>Ho ho ho. {counter}</h1>
+      <input value={text} onChange={function(event){
+        // console.log(event.target.value);
+        setText(event.target.value);
+      }}></input>
       <button
         onClick={function () {
-          setCounter(counter+1);
+            setLines(lines.concat([text]));
+            setText("");
         }}
       >
-        Click to Increase
+        Click to Add
       </button>
+
+
+      {
+        lines.map(function(item, idx){
+          return <h3 key={idx}>{item}</h3>;
+        })
+      }
     </div>
   );
 }
