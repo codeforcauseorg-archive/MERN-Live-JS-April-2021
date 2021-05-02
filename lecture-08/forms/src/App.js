@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 let useStyle = makeStyles({
   root: {
@@ -15,6 +15,7 @@ let useStyle = makeStyles({
     alignItems: "center",
     width: "100vw",
     background: "#cccccc",
+    minHeight: "100vh",
   },
   formBox: {
     display: "flex",
@@ -28,12 +29,31 @@ let useStyle = makeStyles({
     margin: "20px",
     width: "600px",
   },
+  buttonsBox: {
+    width: "600px",
+    display: "flex",
+    margin: "40px 0px",
+  },
+
+  btn: {
+    flexGrow: 1,
+    margin: "20px",
+    padding: "5px",
+    textTransform: "capitalize",
+  },
 });
 
 function App() {
   let classes = useStyle();
 
-  let [formData, setFormData] = useState({});
+  let empty = {
+    name: "",
+    email: "",
+    address: "",
+    phone: "",
+  };
+
+  let [formData, setFormData] = useState(empty);
 
   let fields = [
     {
@@ -80,19 +100,36 @@ function App() {
         );
       })}
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={function () {
-          axios.post("http://localhost:5000/submit", formData).then((response)=>{
-            console.log("Success", response);
-          }).catch((error)=>{
-            console.log("Error", error);
-          });
-        }}
-      >
-        Submit
-      </Button>
+      <Box className={classes.buttonsBox}>
+        <Button
+          className={classes.btn}
+          variant="contained"
+          color="primary"
+          onClick={function () {
+            axios
+              .post("http://localhost:5000/submit", formData)
+              .then((response) => {
+                console.log("Success", response);
+              })
+              .catch((error) => {
+                console.log("Error", error);
+              });
+          }}
+        >
+          Submit
+        </Button>
+
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.btn}
+          onClick={function () {
+            setFormData(empty);
+          }}
+        >
+          Empty
+        </Button>
+      </Box>
     </Box>
   );
 }
