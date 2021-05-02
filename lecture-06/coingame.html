@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        margin: 0px;
+      }
+
+      #dabba {
+        width: 100vw;
+        height: 100vh;
+        background-color: blanchedalmond;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dabba"></div>
+
+    <script>
+      let dabba = document.getElementById("dabba");
+
+      let coinSound = new Audio("./coin.mp3");
+
+      setInterval(function () {
+        let coin = document.createElement("img");
+        let alive = true;
+
+        coin.src = "./coin.png";
+        coin.width = 40;
+        coin.height = 40;
+
+        let rw = parseInt(window.innerWidth * Math.random());
+        let rh = parseInt(window.innerHeight * Math.random());
+
+        coin.style.setProperty("position", "absolute");
+        coin.style.setProperty("bottom", String(rh) + "px");
+        coin.style.setProperty("left", String(rw) + "px");
+
+        coin.onmouseover = function (event) {
+          console.log("Grabbed a coin");
+          dabba.removeChild(coin);
+          coinSound.play();
+          alive = false;
+        };
+
+        // console.log(coin.style);
+
+        dabba.appendChild(coin);
+
+        setTimeout(function () {
+          if(alive){
+            dabba.removeChild(coin);
+          }
+        }, 3000);
+      }, 1000);
+    </script>
+
+    <!-- <script>
+        let ele = document.getElementById("thisisid");
+
+        setInterval(function(){
+            ele.innerHTML = new Date();
+        }, 1000)
+        // console.log(ele.innerHTML);
+    </script> -->
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="thisisid">Welcome to CFC</h1>
+    <div id="dabba"></div>
+
+    <script>
+      let dabba = document.getElementById("dabba");
+
+      setInterval(function () {
+        let heading = document.createElement("h1");
+        heading.innerHTML = "This is a custom heading" + new Date();
+        dabba.appendChild(heading);
+        setTimeout(() => {
+          dabba.removeChild(heading);
+        }, 4000);
+      }, 3000);
+    </script>
+
+    <!-- <script>
+        let ele = document.getElementById("thisisid");
+
+        setInterval(function(){
+            ele.innerHTML = new Date();
+        }, 1000)
+        // console.log(ele.innerHTML);
+    </script> -->
+  </body>
+</html>
