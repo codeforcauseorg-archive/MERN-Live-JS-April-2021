@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import { useState } from "react";
 import axios from "axios";
+import { useSnackbar } from 'notistack';
 
 let useStyle = makeStyles({
   root: {
@@ -43,8 +44,14 @@ let useStyle = makeStyles({
   },
 });
 
+
+
+
+
 function App() {
   let classes = useStyle();
+
+  let { enqueueSnackbar } = useSnackbar();
 
   let empty = {
     name: "",
@@ -107,9 +114,11 @@ function App() {
           color="primary"
           onClick={function () {
             axios
-              .post("http://localhost:5000/submit", formData)
+              .post("https://thawing-taiga-48696.herokuapp.com/submit", formData)
               .then((response) => {
                 console.log("Success", response);
+                enqueueSnackbar("Success");
+                setFormData(empty);
               })
               .catch((error) => {
                 console.log("Error", error);
