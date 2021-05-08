@@ -4,7 +4,7 @@ import "./App.css";
 import firebase from "./utils/firebase";
 import React, { useEffect, useState } from "react";
 import Login from "./pages/Login";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
 
 let UserContext = React.createContext();
@@ -21,9 +21,9 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-        <Router>
+        <BrowserRouter>
           <Routes />
-        </Router>
+        </BrowserRouter>
       </UserContext.Provider>
     </div>
   );
