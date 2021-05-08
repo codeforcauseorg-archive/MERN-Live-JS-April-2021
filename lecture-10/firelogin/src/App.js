@@ -2,21 +2,31 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import firebase from "./utils/firebase";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./pages/Login";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./Routes";
+
+let UserContext = React.createContext();
 
 function App() {
+  let [user, setUser] = useState();
+
   useEffect(function () {
     firebase.auth().onAuthStateChanged(function (user) {
-      console.log(user);
+      setUser(user);
     });
   }, []);
 
   return (
     <div className="App">
-      <Login />
+      <UserContext.Provider value={{ user, setUser }}>
+        <Router>
+          <Routes />
+        </Router>
+      </UserContext.Provider>
     </div>
   );
 }
 
-export default App;
+export { App, UserContext };
