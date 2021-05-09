@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
+import axios from "axios";
 
 let UserContext = React.createContext();
 
@@ -15,6 +16,17 @@ function App() {
   useEffect(function () {
     firebase.auth().onAuthStateChanged(function (user) {
       setUser(user);
+
+      if (user) {
+        user
+          .getIdToken(true)
+          .then(function (idToken) {
+            axios.defaults.headers["Authorization"] = `Bearer ${idToken}`;
+          })
+          .catch(function (error) {
+            // Handle error
+          });
+      }
     });
   }, []);
 
