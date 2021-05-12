@@ -1,9 +1,6 @@
-import logo from "./logo.svg";
-import "./App.css";
 
 import firebase from "./utils/firebase";
 import React, { useEffect, useState } from "react";
-import Login from "./pages/Login";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
 import axios from "axios";

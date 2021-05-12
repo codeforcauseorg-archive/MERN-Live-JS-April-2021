@@ -15,8 +15,9 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
-const Alive = mongoose.model("Alive", {
+const Alive = mongoose.model("AliveUpdate", {
   uid: String,
+  email: String,
   lastAlive: String,
 });
 
@@ -28,6 +29,11 @@ app.use(express.json());
 app.use(cors());
 app.use(expressbearertoken());
 
+app.get("/admin/alive", async function (req, res) {
+  let alives = await Alive.find();
+  res.send(alives);
+});
+
 app.use(function (req, res, next) {
   if (req.token) {
     admin
@@ -35,6 +41,7 @@ app.use(function (req, res, next) {
       .verifyIdToken(req.token)
       .then(function (user) {
         req.user = user;
+        console.log(user);
         next();
       })
       .catch(function (error) {
@@ -45,9 +52,18 @@ app.use(function (req, res, next) {
   }
 });
 
-app.get("/alive", function (req, res) {
-  console.log(req.user);
-  res.send("Working");
+app.get("/alive", async function (req, res) {
+  Alive.updateOne(
+    { uid: req.user.uid },
+    { lastAlive: String(new Date()), email: req.user.email },
+    { upsert: true }
+  )
+    .then(function () {
+      res.send("You are noted as alive");
+    })
+    .catch(async function () {
+      res.sendStatus(504);
+    });
 });
 
 app.listen(PORT, function () {
