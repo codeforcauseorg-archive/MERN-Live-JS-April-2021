@@ -1,4 +1,4 @@
-import { Box, SwipeableDrawer, Typography } from "@material-ui/core";
+import { SwipeableDrawer } from "@material-ui/core";
 import { useState } from "react";
 import { Fragment } from "react";
 import ButtonAppBar from "../components/ButtonAppBar";
@@ -9,13 +9,13 @@ export default function MainLayout({ children }) {
 
   return (
     <Fragment>
-      <ButtonAppBar setOpenD={setOpenD}/>
+      <ButtonAppBar setOpenD={setOpenD} />
       <SwipeableDrawer
         open={openD}
         onClose={() => setOpenD(false)}
         onOpen={() => setOpenD(true)}
       >
-        <SimpleList />
+        <SimpleList setOpenD={setOpenD} />
       </SwipeableDrawer>
       {children}
     </Fragment>
