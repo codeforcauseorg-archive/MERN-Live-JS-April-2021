@@ -5,15 +5,21 @@ import { io } from "socket.io-client";
 import { UserContext } from "../App";
 
 export default function Home() {
-
-  let {user} = useContext(UserContext);
+  let { user } = useContext(UserContext);
 
   let [messages, setMessages] = useState([]);
   let [message, setMessage] = useState("");
   let [socket, setSocket] = useState();
 
-  useEffect(function () {
-    let sock = io("http://localhost:5000/");
+  useEffect(async function () {
+
+    let token = await user.getIdToken(true);
+
+    let sock = io("http://localhost:5000/", {
+      extraHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     sock.on("connect", function () {
       setSocket(sock);
@@ -23,12 +29,16 @@ export default function Home() {
       setSocket(null);
     });
 
+    sock.on("active", function (payload) {
+      console.log(payload);
+    });
+
     sock.on("broadcast", function (payload) {
-      setMessages((old)=>{
+      setMessages((old) => {
         let copy = [...old];
         copy.push(payload);
         return copy;
-      })
+      });
     });
   }, []);
 
@@ -55,7 +65,7 @@ export default function Home() {
           onClick={function () {
             socket.emit("message", {
               content: message,
-              sender: user.displayName
+              sender: user.displayName,
             });
 
             setMessage("");
