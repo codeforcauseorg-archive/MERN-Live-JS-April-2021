@@ -6,6 +6,7 @@ const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const httpStatus = require('http-status');
+const bearerToken = require('express-bearer-token');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
@@ -26,6 +27,8 @@ app.use(helmet());
 
 // parse json request body
 app.use(express.json());
+
+app.use(bearerToken());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));

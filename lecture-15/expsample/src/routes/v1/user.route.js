@@ -3,6 +3,7 @@ const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
+const { admin } = require('../../utils/admin');
 
 const router = express.Router();
 
@@ -10,6 +11,16 @@ router
   .route('/')
   .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+
+router.route('/check').get(auth(), function (req, res) {
+  res.send('You did it');
+});
+
+router.route('/generate').get(async function (req, res) {
+  let custom = await admin.auth().createCustomToken('JCfic5bseIP0EztxAU93LE3eDin2');
+  let token = await admin.auth().signInWithCustomToken(custom);
+  return token;
+});
 
 router
   .route('/:userId')
