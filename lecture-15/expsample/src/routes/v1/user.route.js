@@ -4,6 +4,7 @@ const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
 const userController = require('../../controllers/user.controller');
 const { admin } = require('../../utils/admin');
+const firebase = require('../../utils/firebase');
 
 const router = express.Router();
 
@@ -18,8 +19,10 @@ router.route('/check').get(auth(), function (req, res) {
 
 router.route('/generate').get(async function (req, res) {
   let custom = await admin.auth().createCustomToken('JCfic5bseIP0EztxAU93LE3eDin2');
-  let token = await admin.auth().signInWithCustomToken(custom);
-  return token;
+  let { user } = await firebase.auth().signInWithCustomToken(custom);
+  console.log(user);
+  let token = await user.getIdToken();
+  res.send(token);
 });
 
 router

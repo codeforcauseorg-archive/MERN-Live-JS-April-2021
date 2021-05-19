@@ -9,7 +9,7 @@ const auth =
   async (req, res, next) => {
     if (req.token) {
       console.log(req.token);
-      let user = await admin.auth().ve(req.token);
+      let user = await admin.auth().verifyIdToken(req.token);
       if (user.uid) {
         next();
       } else {
