@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrease, increase } from "./actions/countActions";
+import { decrease, increase, setValue } from "./actions/countActions";
 import "./App.css";
 
 function App() {
@@ -23,6 +23,19 @@ function App() {
       >
         Decrease
       </button>
+
+      <br></br>
+
+      <input
+        value={count}
+        onChange={function (event) {
+          if (isNaN(event.target.value)) {
+            return; 
+          }
+          let value = event.target.value ? Number(event.target.value) : 0;
+          dispatch(setValue(value));
+        }}
+      />
     </div>
   );
 }
