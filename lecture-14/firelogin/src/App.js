@@ -1,4 +1,3 @@
-
 import firebase from "./utils/firebase";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -18,12 +17,13 @@ function App() {
         user
           .getIdToken(true)
           .then(function (idToken) {
+            console.log(idToken);
             axios.defaults.headers["Authorization"] = `Bearer ${idToken}`;
           })
           .catch(function (error) {
             // Handle error
           });
-      } 
+      }
     });
   }, []);
 
