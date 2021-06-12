@@ -16,6 +16,6 @@ export class ImagesService {
   }
 
   findOne(fname: string) {
-    return this.imageModel.findOne({ name: fname });
+    return this.imageModel.findById(fname);
   }
 }

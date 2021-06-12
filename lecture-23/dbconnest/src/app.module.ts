@@ -8,6 +8,7 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { ImagesModule } from './images/images.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     FirebaseModule,
     AuthModule,
     ImagesModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
