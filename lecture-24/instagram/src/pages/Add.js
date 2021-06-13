@@ -3,6 +3,7 @@ import { useState } from "react";
 import ImageUploader from "react-images-upload";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import axios from "axios";
 
 export default function Add() {
   let [picture, setPicture] = useState();
@@ -26,6 +27,21 @@ export default function Add() {
       crop.width,
       crop.height
     );
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    let content = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    
+    axios
+      .post("http://localhost:5000/images/", {
+        content,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return new Promise((resolve, reject) => {
       canvas.toBlob(
@@ -77,6 +93,7 @@ export default function Add() {
           onClick={async function () {
             let img = document.getElementsByClassName("ReactCrop__image")[0];
             let result = await getCroppedImg(img, crop, "cropped.png");
+
             setPicture(URL.createObjectURL(result));
           }}
         >
